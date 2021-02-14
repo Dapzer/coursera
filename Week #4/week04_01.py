@@ -37,3 +37,11 @@ class File:
     def __next__(self):
         with open(self.path, 'r') as f:
             f.seek(self.current_position)
+
+            line = f.readline()
+            if not line:
+                self.current_position = 0
+                raise StopIteration('EOF')
+
+            self.current_position = f.tell()
+            return line
